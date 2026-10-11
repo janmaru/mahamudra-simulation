@@ -1,0 +1,10 @@
+title: Is Reality a Simulation?
+author: Mauro Ghiani
+baseurl: /mahamudra-simulation
+theme: null
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default

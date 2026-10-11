@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{{ page.excerpt | default: site.title | strip_html | truncatewords: 30 }}">
+    <meta name="author" content="{{ site.author }}">
+    <link rel="icon" href="https://janmaru.github.io/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true},{left: '$', right: '$', display: false}]});"></script>
+    <title>{% if page.title and page.title != site.title %}{{ page.title }} - {% endif %}{{ site.title }}</title>
+    <link rel="stylesheet" href="https://janmaru.github.io/css/style.css">
+    {% if page.extra_css %}
+    <style>{{ page.extra_css }}</style>
+    {% endif %}
+</head>
+<body>
+    <header>
+        <h1><a href="https://janmaru.github.io/" class="site-title"><span class="title-jan">JAN</span><span class="title-maru">MARU</span></a></h1>
+        <nav>
+            <a href="https://janmaru.github.io/"><span class="hotkey">H</span>ome</a>
+            <a href="{{ '/' | relative_url }}"><span class="hotkey">B</span>ook</a>
+            <a href="https://janmaru.github.io/categories/ai">A<span class="hotkey">I</span></a>
+            <a href="https://janmaru.github.io/categories/philosophy"><span class="hotkey">P</span>hilosophy</a>
+            <a href="https://janmaru.github.io/categories/odds"><span class="hotkey">O</span>dds</a>
+            <a href="https://janmaru.github.io/about"><span class="hotkey">A</span>bout</a>
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark theme"><span class="hotkey">D</span>ark</button>
+        </nav>
+    </header>
+
+    <main>
+        <article>
+            <div class="content">
+                {{ content }}
+            </div>
+        </article>
+    </main>
+
+    <footer>
+        &copy; {{ site.time | date: '%Y' }} Mauro Ghiani. Empty space is where thought is born.
+    </footer>
+    <script>
+    (function() {
+        var btn = document.getElementById('theme-toggle');
+        var body = document.body;
+        var stored = localStorage.getItem('theme');
+        function setLabel(isLight) {
+            btn.innerHTML = isLight
+                ? '<span class="hotkey">L</span>ight'
+                : '<span class="hotkey">D</span>ark';
+        }
+        if (stored === 'light') {
+            body.classList.add('light-theme');
+            setLabel(true);
+        }
+        btn.addEventListener('click', function() {
+            body.classList.toggle('light-theme');
+            var isLight = body.classList.contains('light-theme');
+            setLabel(isLight);
+            localStorage.setItem('theme', isLight ? 'light' : 'dark');
+        });
+    })();
+    </script>
+</body>
+</html>
